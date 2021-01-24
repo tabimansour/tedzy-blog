@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class PostsController extends Controller
 {
     public function index() {
-        $posts = Posts::orderBy('created_at', 'DESC')->paginate(5);
+        $posts = Posts::orderBy('created_at', 'DESC')->with('user', 'likes')->paginate(5);
         return view('posts.index')->with('posts', $posts);
     }
 
@@ -33,6 +33,23 @@ class PostsController extends Controller
 //          'body' => $request->body
 //      ]);
 
+        return back();
+    }
+
+    public function destroy(Posts $post) {
+        // name of the function in Policies\PostPolicy
+        $this->authorize('delete', $post);
+        $post->delete();
+
+//        if(!$post->ownedBy(auth()->user())) {
+//            $post->delete();
+//        }
+
+
+//        if($post->user_id === auth()->id()) {
+//            $post->delete();
+//        }
+        //return response(null, 409);
         return back();
     }
 }

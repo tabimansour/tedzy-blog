@@ -24,6 +24,7 @@ Route::get('/', [Controller::class, 'index'])->name('home');
 
 Route::get('/posts', [PostsController::class, 'index'])->name('posts');
 Route::post('/posts', [PostsController::class, 'store']);
+Route::delete('/posts/{post}', [PostsController::class, 'destroy'])->name('posts.destroy');
 
 Route::get('/dashboard', [PostsController::class, 'private'])->name('dashboard')->middleware('auth');
 

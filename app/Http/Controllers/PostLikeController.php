@@ -22,15 +22,20 @@ class PostLikeController extends Controller
             }
         } else {
             if($post->likedBy($request->user())) {
-                $post->likes()->delete([
-                    'user_id' => auth()->id(),
-                    'post_id' => $post->id
-                ]);
+//                $post->likes()->delete([
+//                    'user_id' => auth()->id(),
+//                    'post_id' => $post->id
+//                ]);
+                $request->user()->likes()->where('post_id', $post->id)->delete();
             } else {
                 //return response(null, 409);
             }
         }
 
         return back();
+    }
+
+    public function destroy(Post $post, Request $request) {
+
     }
 }
