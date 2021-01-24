@@ -35,4 +35,4 @@ Route::post('/auth/logout', [LogoutController::class, 'logout'])->name('logout')
 Route::get('/auth/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/auth/register', [RegisterController::class, 'store']);
 
-Route::post('/posts/{post}/mode', [PostLikeController::class, 'store'])->name('like');
+Route::post('/posts/{post}/{mode}', [PostLikeController::class, 'store'])->name('like');
